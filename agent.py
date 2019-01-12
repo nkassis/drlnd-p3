@@ -20,8 +20,8 @@ class Agent():
         self, 
         state_size=None,        # state space size
         action_size=None,       # action size
-        replay_buffer=None,     # Replay Buffer
-        actor_target=None,      # Actor target network
+        memory=None,
+        buffer_size=int(1e6),   # replay buffer size
         batch_size=128,         # minibatch size
         gamma=0.99,             # discount factor
         tau=1e-3,               # for soft update of target parameters
@@ -42,7 +42,7 @@ class Agent():
         self.seed = random.seed(random_seed)
         # Actor Network (w/ Target Network)
         self.actor_local = Actor(state_size, action_size, random_seed).to(device)
-        self.actor_target = actor_target
+        self.actor_target = Actor(state_size, action_size, random_seed).to(device)
         self.actor_optimizer = optim.Adam(self.actor_local.parameters(), lr=lr_actor)
 
         # Critic Network (w/ Target Network)
@@ -53,8 +53,12 @@ class Agent():
         # Noise process
         self.noise = OUNoise(action_size, random_seed)
         # Replay memory
-        self.memory = replay_buffer
-    
+        print(memory)
+        if not isinstance(memory, ReplayBuffer):
+            print("{} is false".format(memory))
+            memory = ReplayBuffer(action_size, buffer_size, batch_size, random_seed, device)
+        self.memory = memory
+
     def step(self, state, action, reward, next_state, done):
         """Save experience in replay memory, and use random sample from buffer to learn."""
         # Save experience / reward
