@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-This is my solution to the second project of the Udacity Deep Reinforcement Learning Nanodegree. In this project we were asked to build an agent that could control a double-jointed arm towards specific locations.
+This is my solution to the third project of the Udacity Deep Reinforcement Learning Nanodegree. In this project we were asked to build agents that could play a game of tennis. 
 
 #Environment
 
@@ -11,9 +11,15 @@ We were prodived an environment built with Unity ML-Agent toolkit.
 Here is the project description of the environment:
 
 ```
-In this environment, a double-jointed arm can move to target locations. A reward of +0.1 is provided for each step that the agent's hand is in the goal location. Thus, the goal of your agent is to maintain its position at the target location for as many time steps as possible.
+In this environment, two agents control rackets to bounce a ball over a net. If an agent hits the ball over the net, it receives a reward of +0.1. If an agent lets a ball hit the ground or hits the ball out of bounds, it receives a reward of -0.01. Thus, the goal of each agent is to keep the ball in play.
 
-The observation space consists of 33 variables corresponding to position, rotation, velocity, and angular velocities of the arm. Each action is a vector with four numbers, corresponding to torque applicable to two joints. Every entry in the action vector should be a number between -1 and 1.
+The observation space consists of 8 variables corresponding to the position and velocity of the ball and racket. Each agent receives its own, local observation. Two continuous actions are available, corresponding to movement toward (or away from) the net, and jumping.
+
+The task is episodic, and in order to solve the environment, your agents must get an average score of +0.5 (over 100 consecutive episodes, after taking the maximum over both agents). Specifically,
+
+After each episode, we add up the rewards that each agent received (without discounting), to get a score for each agent. This yields 2 (potentially different) scores. We then take the maximum of these 2 scores.
+This yields a single score for each episode.
+The environment is considered solved, when the average (over 100 episodes) of those scores is at least +0.5.
 ```
 
 ## Requirements
@@ -24,8 +30,8 @@ The observation space consists of 33 variables corresponding to position, rotati
 * Jupyter
 * Numpy
 * Matplotlib
-* Reacher Unity Environment ([Linux](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux.zip)),([OSX](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher.app.zip)),
-([Win64](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Windows_x86_64.zip)),([Win32](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Windows_x86.zip))
+* Tennis Unity Environment ([Linux](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux.zip)),([OSX](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis.app.zip)),
+([Win64](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86.zip)),([Win32](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86_64.zip))
 
 ## Environment 
 
@@ -33,9 +39,9 @@ The observation space consists of 33 variables corresponding to position, rotati
 
 ## How to run
 
-1. Download the environment and unzip it into the directory of the project. Rename the folder to reacher and ensure that it contains Reacher.exe 
+1. Download the environment and unzip it into the directory of the project. Rename the folder to Tennis and ensure that it contains Tennis.exe 
 2. Use jupyter to run the Report.ipynb notebook: `jupyter notebook report.ipynb`
-3. To train the agent run the cells in order. They will initialize the environment and train until it reaches the goal condition of +30
+3. To train the agent run the cells in order. They will initialize the environment and train until it reaches the goal condition of +0.5 average over 100 episode
 4. A graph of the scores during training will be displayed after training. 
 
 ## Code

@@ -52,10 +52,9 @@ class Agent():
 
         # Noise process
         self.noise = OUNoise(action_size, random_seed)
+        
         # Replay memory
-        print(memory)
         if not isinstance(memory, ReplayBuffer):
-            print("{} is false".format(memory))
             memory = ReplayBuffer(action_size, buffer_size, batch_size, random_seed, device)
         self.memory = memory
 
